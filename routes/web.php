@@ -14,3 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::namespace('Blog')->group(function() {
+    Route::get('/categories', 'MainController@index');
+    Route::get('/category/{id}', [
+        'as' => 'category',
+        'uses' => 'MainController@showPosts'
+    ]);
+    Route::get('/post/{id}', [
+        'as' => 'post',
+        'uses' => 'MainController@showPost'
+    ]);
+});
