@@ -21,9 +21,27 @@
 </style>
 
 @section('content')
-    <div class="edit-post">
-        <input type="text" value="{{ $post->title }}">
-        <textarea class="text">{{ $post->text }}</textarea>
-        <button>Save</button>
-    </div>
+    @auth
+        @if(auth()->user()->id == $author->id)
+            <form method="POST">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <div class="edit-post">
+                    <input class="form-control" type="text" name="title" value="{{ $post->title }}">
+                    <textarea class="text form-control" name="text">{{ $post->text }}</textarea>
+                    <button class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        @else
+            <div class="post">
+                <div class="title">{{ $post->title }}<span class="author">{{ $author->nickname }}</span></div>
+                <div class="text">{{ $post->text }}</div>
+            </div>
+        @endif
+    @endauth
+    @guest
+        <div class="post">
+            <div class="title">{{ $post->title }}<span class="author">{{ $author->nickname }}</span></div>
+            <div class="text">{{ $post->text }}</div>
+        </div>
+    @endguest
 @endsection

@@ -15,14 +15,29 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::namespace('Blog')->group(function() {
+Route::namespace('Blog')->prefix('blog')->group(function() {
+    Route::get('/', 'MainController@main');
     Route::get('/categories', 'MainController@index');
     Route::get('/category/{id}', [
         'as' => 'category',
         'uses' => 'MainController@showPosts'
     ]);
+    Route::get('/post', 'PostController@create');
+    Route::post('/post', 'PostController@store');
     Route::get('/post/{id}', [
         'as' => 'post',
         'uses' => 'MainController@showPost'
     ]);
+    Route::post('/post/{id}', [
+        'as' => 'post',
+        'uses' => 'MainController@update'
+    ]);
+});
+
+Route::namespace('Auth')->prefix('auth')->group(function() {
+    Route::get('/register', 'RegistrationController@create');
+    Route::post('/register', 'RegistrationController@store');
+    Route::get('/', 'AuthController@login');
+    Route::get('/logout', 'AuthController@logout')->name('logout');
+    Route::post('/', 'AuthController@auth');
 });

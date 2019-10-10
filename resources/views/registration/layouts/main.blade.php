@@ -12,7 +12,6 @@
     <style>
         html, body {
             background-color: #fff;
-            color: #636b6f;
             font-family: 'Nunito', sans-serif;
             font-weight: 200;
             height: 100vh;
@@ -27,7 +26,7 @@
         }
 
         .sidebar {
-            width: 230px;
+            width: 200px;
             border: 1px solid #d3d3d3;
             border-radius: 3px;
         }
@@ -46,48 +45,38 @@
             width: 100%;
         }
 
-        .post {
-            border: 1px solid #d3d3d3;
-            border-radius: 3px;
-            padding: 4px;
-            max-width: 400px;
-        }
-
-        .post .title {
+        .register-form {
             display: flex;
+            flex-direction: column;
+            width: 430px;
+            height: 280px;
             justify-content: space-between;
-            padding: 5px;
-            border-bottom: 1px solid #dededf;
+
+            border: 1px solid #dededf;
+            padding: 15px;
         }
 
-        .post .text {
-            padding-top: 10px;
+        .register-form button {
+            width: 100px;
         }
 
-        .auth-user {
-
+        .alert {
+            width: 400px;
         }
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        @if(auth()->check())
-            <div class="auth-user">
-                <a class="nav-link" href="#">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }} ({{ auth()->user()->nickname }})</a>
-                <a class="nav-link" href="{{ route('logout') }}">Logout</a>
-            </div>
-        @endif
-
-        @if(isset($categories))
-            <ul>
-                @foreach($categories as $category)
-                    <li><a class="menu-item" href="{{ route('category', ['id' => $category->id])  }}">{{  $category->title  }}</a></li>
-                @endforeach
-            </ul>
-        @endif
-    </div>
-    <div class="content">
-        @yield('content')
-    </div>
+<div class="sidebar">
+    @if(auth()->check())
+        <div class="auth-user">
+            <a class="nav-link" href="#">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }} ({{ auth()->user()->nickname }})</a>
+            <a class="nav-link" href="{{ route('logout') }}">Logout</a>
+        </div>
+    @endif
+    @yield('sidebar')
+</div>
+<div class="content">
+    @yield('content')
+</div>
 </body>
 </html>
