@@ -30,7 +30,7 @@ Route::namespace('Blog')->prefix('blog')->group(function() {
     ]);
     Route::post('/post/{id}', [
         'as' => 'post',
-        'uses' => 'MainController@update'
+        'uses' => 'PostController@update'
     ]);
 });
 

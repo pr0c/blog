@@ -10,8 +10,25 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <style>
+        ::-webkit-scrollbar {
+            background: #F0F3F4;
+            width: 0.5em;
+            position: absolute;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+            position: absolute;
+            z-index: -2;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 100px;
+            background: #888;
+        }
+
         html, body {
-            background-color: #fff;
+            background-color: #F8F9FA;
             color: #636b6f;
             font-family: 'Nunito', sans-serif;
             font-weight: 200;
@@ -23,11 +40,15 @@
             display: flex;
             flex-direction: row;
             width: 1400px;
-            padding: 10px;
         }
 
         .sidebar {
-            width: 230px;
+            display: flex;
+            top: 90px;
+            position: fixed;
+            flex-direction: row;
+            width: 200px;
+            height: 1000px;
             border: 1px solid #d3d3d3;
             border-radius: 3px;
         }
@@ -42,42 +63,54 @@
         }
 
         .content {
-            margin: 15px;
-            width: 100%;
-        }
-
-        .post {
-            border: 1px solid #d3d3d3;
-            border-radius: 3px;
-            padding: 4px;
-            max-width: 400px;
-        }
-
-        .post .title {
             display: flex;
-            justify-content: space-between;
-            padding: 5px;
-            border-bottom: 1px solid #dededf;
-        }
-
-        .post .text {
-            padding-top: 10px;
+            width: 100%;
+            justify-content: center;
+            margin-top: 100px;
         }
 
         .auth-user {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
 
+        .auth-user a {
+            color: black;
+            text-decoration: none;
+        }
+
+        .auth-user a:hover {
+            color: #a9a9a9;
+        }
+
+        .navbar {
+            position: fixed;
+            display: flex;
+            width: 99.7%;
+            height: 80px;
+            border: 1px solid #dededf;
+            background-color: #ececed;
+            padding: 0 5px 0 5px !important;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
         }
     </style>
 </head>
 <body>
-    <div class="sidebar">
+    <div class="navbar">
+        {{ Html::image('img/logo.png', 'blog', array('class' => 'logo')) }}
         @if(auth()->check())
             <div class="auth-user">
-                <a class="nav-link" href="#">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }} ({{ auth()->user()->nickname }})</a>
-                <a class="nav-link" href="{{ route('logout') }}">Logout</a>
+                <a href="#">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }} ({{ auth()->user()->nickname }})</a>
+                <a href="{{ route('logout') }}">Logout</a>
             </div>
         @endif
-
+    </div>
+    <div class="sidebar">
         @if(isset($categories))
             <ul>
                 @foreach($categories as $category)

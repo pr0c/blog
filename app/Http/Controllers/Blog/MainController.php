@@ -34,12 +34,4 @@
 
             return view('blog.post', ['categories' => $categories, 'post' => $post, 'author' => $author]);
         }
-
-        public function update($id, Request $request) {
-            $categories = Category::all();
-            $post = Post::find($id);
-            $post->update($request->all());
-
-            return view('blog.post', compact('post'), compact('categories'));
-        }
     }
