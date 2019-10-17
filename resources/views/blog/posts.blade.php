@@ -22,11 +22,8 @@
                 <div class="text">{{ $post->text }}</div>
             </div>--}}
             @component('blog.components.post', [
-                'title' => $post->title,
-                'postID' => $post->id,
-                'author' => $post->author->nickname,
-                'text' => $post->text,
-                'datetime' => $post->created_at
+                'post' => $post,
+                'author' => $post->author
             ])
             @endcomponent
         @endforeach

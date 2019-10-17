@@ -4,12 +4,16 @@ namespace App\Http\Controllers\Blog;
 
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\User;
 
 class PostController extends BaseController {
     public function create() {
         $categories = Category::all();
+        $user = request()->user();
 
-        return view('blog.addPost', compact('categories'));
+        if($user != null && $user->can('create-post'))
+            return view('blog.addPost', compact('categories'));
+        else return redirect()->route('login');
     }
 
     public function store() {

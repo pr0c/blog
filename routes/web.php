@@ -37,7 +37,11 @@ Route::namespace('Blog')->prefix('blog')->group(function() {
 Route::namespace('Auth')->prefix('auth')->group(function() {
     Route::get('/register', 'RegistrationController@create');
     Route::post('/register', 'RegistrationController@store');
-    Route::get('/', 'AuthController@login');
+    Route::get('/', 'AuthController@login')->name('login');
     Route::get('/logout', 'AuthController@logout')->name('logout');
     Route::post('/', 'AuthController@auth');
+    Route::prefix('permissions')->group(function() {
+        Route::get('/add_role', 'RoleController@addRole')->name('add_role');
+        Route::post('/add_role', 'RoleController@store');
+    });
 });

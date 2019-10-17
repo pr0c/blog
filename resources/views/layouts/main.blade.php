@@ -104,39 +104,24 @@
             width: 51px;
             height: 51px;
         }
-
-        .admin {
-            color: red !important;
-        }
     </style>
 </head>
 <body>
-    <div class="navbar">
-{{--        {{ Html::image('img/logo.png', 'blog', array('class' => 'logo')) }}--}}
-        <span>Blog</span>
-        @if(auth()->check())
-            <div class="auth-user">
-                @if(auth()->user()->hasRole('administrator'))
-                    <a class="admin" href="#">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }} ({{ auth()->user()->nickname }})</a>
-                @else
-                    <a href="#">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }} ({{ auth()->user()->nickname }})</a>
-                @endif
-
-                <a href="{{ route('logout') }}">Logout</a>
-            </div>
-        @endif
-    </div>
-    <div class="sidebar">
-        @if(isset($categories))
-            <ul>
-                @foreach($categories as $category)
-                    <li><a class="menu-item" href="{{ route('category', ['id' => $category->id])  }}">{{  $category->title  }}</a></li>
-                @endforeach
-            </ul>
-        @endif
-    </div>
-    <div class="content">
-        @yield('content')
-    </div>
+<div class="navbar">
+    {{--        {{ Html::image('img/logo.png', 'blog', array('class' => 'logo')) }}--}}
+    <span>Blog</span>
+    @if(auth()->check())
+        <div class="auth-user">
+            <a href="#">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }} ({{ auth()->user()->nickname }})</a>
+            <a href="{{ route('logout') }}">Logout</a>
+        </div>
+    @endif
+</div>
+<div class="sidebar">
+    @yield('sidebar')
+</div>
+<div class="content">
+    @yield('content')
+</div>
 </body>
 </html>

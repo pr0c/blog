@@ -9,6 +9,7 @@
         height: 500px;
         box-shadow: 1px 1px 1px #dededf;
         background-color: white;
+        font-family: 'Playfair Display', serif;
     }
 
     .post .title {
@@ -37,9 +38,9 @@
 
 <div class="post">
     <div class="title">
-        <a href="{{ route('post', ['id' => $postID]) }}">{{ $title }}</a>
-        <span class="author">{{ $author }}</span>
+        <a href="{{ route('post', ['id' => $post->id]) }}">{{ $post->title }}</a>
+        <span class="author">{{ $author->nickname }}</span>
     </div>
-    <div class="text">{{ $text }}</div>
-    <div class="status-bar">{{ $datetime }}</div>
+    <div class="text">{{ $post->text }}</div>
+    <div class="status-bar">{{ $post->created_at }}</div>
 </div>

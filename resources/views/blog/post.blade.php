@@ -32,10 +32,15 @@
                 </div>
             </form>
         @else
-            <div class="post">
+            {{--<div class="post">
                 <div class="title">{{ $post->title }}<span class="author">{{ $author->nickname }}</span></div>
                 <div class="text">{{ $post->text }}</div>
-            </div>
+            </div>--}}
+            @component('blog.components.post', [
+                'post' => $post,
+                'author' => $author
+            ])
+            @endcomponent
         @endif
     @endauth
     @guest
